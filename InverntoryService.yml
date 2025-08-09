@@ -1,1 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Inventory
+    username: postgres
+    password: hiwotwel1237.
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: update
+server:
+  port: 8083
+#eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+eureka:
+  client:
+    service-url.defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
 
+logging:
+  level.com:
+    netflix.discovery: DEBUG
+    netflix.eureka: DEBUG
+  level.org.springframework.cloud.netflix.eureka: DEBUG
+  level.io.micrometer.tracing: TRACE
+  level.io.zipkin.reporter: DEBUG
+# zipkin
+management:
+  tracing:
+    sampling.probability: 1.0
+    enabled: true
+  zipkin:
+    endpoint: http://localhost:9411/api/v2/spans
+    prometheus.enabled: true
+  endpoints.web.exposure.include: health,info,prometheus
+  metrics.export.prometheus.enabled: true
