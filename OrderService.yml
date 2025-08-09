@@ -1,1 +1,80 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Order_DATA
+    username: postgres
+    password: hiwotwel1237.
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  level:
+    com:
+      netflix:
+        discovery: DEBUG
+        eureka: DEBUG
+    org:
+      springframework:
+        cloud:
+          netflix:
+            eureka: DEBUG
+    io:
+      micrometer:
+        tracing: TRACE
+      zipkin:
+        reporter: DEBUG
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      InventoryCB:
+        sliding-window-type: count-based
+        register-health-indicator: true
+        event-consumer-buffer-size: 1000
+        failure-rate-threshold: 80
+        sliding-window-size: 8
+        minimum-number-of-calls: 4
+        automatic-transition-from-open-to-half-open-enabled: true
+        permitted-number-of-calls-in-half-open-state: 2
+        wait-duration-in-open-state: 1s
+  # retry:
+  #   instances:
+  #     retryInstance:
+  #       max-attempts: 3
+  #       wait-duration: 1s
+  #       retry-exceptions:
+  #         - com.arayaCode.exception.ServiceUnavailableException
+  #         - org.springframework.web.reactive.function.client.WebClientResponseException
+  #         - java.net.ConnectException
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  zipkin:
+    endpoint: http://localhost:9411/api/v2/spans
 
