@@ -1,1 +1,57 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Poduct
+    username: postgres
+    password: hiwotwel1237.
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8084
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  level:
+    com:
+      netflix:
+        discovery: DEBUG
+        eureka: DEBUG
+    org:
+      springframework:
+        cloud:
+          netflix:
+            eureka: DEBUG
+    io:
+      micrometer:
+        tracing: TRACE
+      zipkin:
+        reporter: DEBUG
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  zipkin:
+    endpoint: http://localhost:9411/api/v2/spans
 
