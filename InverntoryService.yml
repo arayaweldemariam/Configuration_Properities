@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/Inventory
+    url: jdbc:postgresql://inventory-db:5432/Inventory
     username: postgres
     password: hiwotwel1237.
     driver-class-name: org.postgresql.Driver
@@ -12,7 +12,7 @@ server:
 #eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 eureka:
   client:
-    service-url.defaultZone: http://localhost:8761/eureka/
+    service-url.defaultZone: http://eureka-server:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
 
